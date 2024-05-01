@@ -1,0 +1,110 @@
+//Products.jsx component
+import React, { useEffect, useState } from 'react';
+import '../user.css'
+import { add } from '../counter/counterSlice';
+import { useSelector,useDispatch } from 'react-redux'
+
+const Products = () => {
+  
+  const dispatch = useDispatch()
+
+    const [product, setproduct] = useState([])
+    useEffect(() => {
+      const fetchproducts =async ()=>{
+        let result = await fetch("https://fakestoreapi.com/products");
+        let data = await result.json();
+        console.log(data);
+        setproduct(data)
+      }
+      fetchproducts();
+    }, []);
+
+    const handleadd=(product)=>{
+      dispatch(add(product))
+    }
+  return (
+    <div>
+      <main>
+          {
+            product.map((product, idx) => {
+              console.log(product);
+              return (
+                <section key={idx} className="product">
+                  <img
+                    src={product.image}
+                    alt="Fjallraven - Foldsack No. 1 Backpack"
+                  />
+                  <div className="info">
+                    <h3>{product.title}</h3>
+                    <p>{product.category}</p>
+                    <div className=' d-flex justify-content-between m-0 p-0'>
+                    <span className="price">price : {product.price}₹</span>
+                    <p className="price">Rating : {product.rating.rate}★</p>
+                    </div>
+                   
+                    <button className=" btn btn-outline-danger" onClick={()=>{
+                      handleadd(product)
+                    }}> ADD Product</button>
+                  </div>
+                </section>
+              );
+            })}
+        </main>
+    </div>
+  );
+}
+
+export default Products;
+
+
+// productSlice.jsx component
+
+import { createSlice } from '@reduxjs/toolkit'
+
+
+export const STATUES= Object.freeze( {
+    IDLE : 'idle',
+    LOADING : 'loading',
+    ERROR : 'error',
+})
+
+ const initialState = {
+    data : [],
+    status : STATUES.IDLE,
+};
+
+export const productSlice = createSlice({
+  name: 'product',
+  initialState,
+  reducers: {
+    // not any async function directlly use in reducers [do not do this Never]
+    setproducts:(state,action)=>{
+      state.data = action.payload
+    },
+    setStatus:(state,action)=>{
+      state.status = action.payload
+    },
+   
+  },
+})
+export const { setproducts, setStatus } = productSlice.actions
+
+export default productSlice.reducer
+
+
+// thunks method : 1    [function under function call that is call thunk]
+
+export function fetchProduct() {
+    return  async function fetchProductthunk(dispatch,getState) {
+        dispatch(setStatus(STATUES.LOADING))
+        try {
+            let result = await fetch("https://fakestoreapi.com/products");
+            let data = await result.json();
+            dispatch(setproducts(data))
+            dispatch(setStatus(STATUES.IDLE))
+        } catch (error) {
+            console.log("Error :", error)
+            dispatch(setStatus(STATUES.ERROR))
+        }
+    }
+}

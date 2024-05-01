@@ -1,0 +1,74 @@
+import React, { useState, useEffect } from 'react';
+
+const Pdetails = () => {
+    const [product, setproduct] = useState([]);
+    useEffect(() => {
+      const handleItem=async()=>{
+        let result = await fetch(`https://fakestoreapi.com/products/${id}`);
+          let data = await result.json();
+          console.log(data);
+          setproduct(data)
+      }
+      handleItem();
+    }, []);
+  return (
+    <div style={{marginTop: "6rem"}}>
+   
+        <div className="container my-5 py-3">
+            <div className="row">
+                <div className="col-md-6 d-flex justify-content-center mx-auto product">
+                    <img src={product.image} alt={product.id} style={{height:"450px"}} />
+                </div>
+                <div className="col-md-6 d-flex flex-column justify-content-center">
+                    <h1 className="display-5 fw-bold">{product.title}</h1>
+                    <hr />
+                    <h2 className="my-4">₹{product.price}</h2>
+                    <p className="lead">{product.desc}</p>
+                    <button onClick={()=>handleCart(product)} className="btn btn-outline-primary my-5">cartBtn</button>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+  );
+}
+
+export default Pdetails;
+
+
+import React, { useState, useEffect } from 'react';
+
+const Pdetails = () => {
+    const [product, setproduct] = useState([]);
+    useEffect(() => {
+      const handleItem=async()=>{
+        let result = await fetch(`https://fakestoreapi.com/products/1`);
+          let data = await result.json();
+          console.log(data);
+          setproduct(data)
+      }
+      handleItem();
+    }, []);
+  return (
+    <div style={{marginTop: "6rem"}}>
+   
+        <div className="container my-5 py-3">
+            <div className="row">
+                <div className="col-md-6 d-flex justify-content-center mx-auto product">
+                    <img src={product.image} alt={product.id} style={{height:"450px"}} />
+                </div>
+                <div className="col-md-6 d-flex flex-column justify-content-center">
+                    <h1 className="display-5 fw-bold">{product.title}</h1>
+                    <hr />
+                    <h2 className="my-4">₹{product.price}</h2>
+                    <p className="lead">{product.desc}</p>
+                    <button onClick={()=>handleCart(product)} className="btn btn-outline-primary my-5">cartBtn</button>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+  );
+}
+
+export default Pdetails;
