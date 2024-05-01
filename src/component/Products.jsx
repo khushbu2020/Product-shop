@@ -43,7 +43,7 @@ const Products = () => {
                                 <p className="price">Rating : {product.rating.rate}★</p>
                             </div>
                             <button className="btn btn-outline-danger mx-3 my-2" onClick={() => handleAdd(product)}> ADD Product</button>
-                            <Link to={`/Product-shop/product/${product.id}`}><button className="btn btn-outline-danger mx-3 my-2"> More details</button></Link>
+                            {/* <Link to={`/Product-shop/product/${product.id}`}><button className="btn btn-outline-danger mx-3 my-2"> More details</button></Link> */}
                         </div>
                     </section>
                 ))}

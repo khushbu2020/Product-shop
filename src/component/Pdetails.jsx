@@ -20,7 +20,7 @@ const handleAdd = () => {
   const [product, setproduct] = useState([])
   useEffect(() => {
     const fetchproducts =async ()=>{
-      let result = await fetch(`http://fakestoreapi.com/products/${id}`);
+      let result = await fetch(`https://fakestoreapi.com/products/${id}`);
       let data = await result.json();
       console.log(data);
       setproduct(data)
