@@ -41,7 +41,7 @@ const handleAdd = () => {
                     <h2 className="my-4">₹{product.price}</h2>
                     <p className="lead">{product.desc}</p>
                     <button onClick={() => handleAdd(product)} className="btn btn-outline-primary my-2">Add to Cart</button>
-                    <Link to='/cart'><button className="btn btn-outline-primary w-100 my-2">Go to Cart</button></Link>
+                    <Link to='/Product-shop/cart'><button className="btn btn-outline-primary w-100 my-2">Go to Cart</button></Link>
                 </div>
             </div>
         </div>
